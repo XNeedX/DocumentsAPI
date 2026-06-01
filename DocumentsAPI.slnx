@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DocumentsAPI.Application/DocumentsAPI.Application.csproj" />
+  <Project Path="DocumentsAPI.Domain/DocumentsAPI.Domain.csproj" />
+  <Project Path="DocumentsAPI.Infrastructure/DocumentsAPI.Infrastructure.csproj" />
+  <Project Path="DocumentsAPI.Presentation/DocumentsAPI.Presentation.csproj" />
+</Solution>
