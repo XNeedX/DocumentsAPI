@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="InnoClinic.Contracts" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DocumentsAPI.Domain\DocumentsAPI.Domain.csproj" />
   </ItemGroup>
 
