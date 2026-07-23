@@ -22,6 +22,6 @@ public sealed class SaveAppointmentResultDocumentConsumer : IConsumer<ISaveAppoi
 
         using var stream = new MemoryStream(message.PdfBytes);
 
-        Guid fileId = await _blobService.UploadAsync(stream, message.ContentType, context.CancellationToken);
+        Guid fileId = await _blobService.UploadPdfAsync(stream, message.ContentType, context.CancellationToken);
     }
 }

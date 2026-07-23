@@ -42,4 +42,46 @@ internal class BlobService(BlobServiceClient blobServiceClient) : IBlobService
 
         return fileId;
     }
+
+    public async Task<Guid> UploadPdfAsync(Stream stream, string contentType, CancellationToken cancellationToken = default)
+    {
+        BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);
+
+        var fileId = Guid.NewGuid();
+
+        string fileName = $"{fileId}.pdf";
+
+        BlobClient blobClient = containerClient.GetBlobClient(fileName);
+
+        await blobClient.UploadAsync(
+            stream,
+            new BlobHttpHeaders { ContentType = contentType },
+            cancellationToken: cancellationToken);
+
+        return fileId;
+    }
+
+    public async Task<FileResponse> DownloadPdfAsync(Guid fileId, CancellationToken cancellationToken = default)
+    {
+        BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);
+
+        string fileName = $"{fileId}.pdf";
+
+        BlobClient blobClient = containerClient.GetBlobClient(fileName);
+
+        var response = await blobClient.DownloadContentAsync(cancellationToken: cancellationToken);
+
+        return new FileResponse(response.Value.Content.ToStream(), response.Value.Details.ContentType);
+    }
+
+    public async Task DeletePdfAsync(Guid fileId, CancellationToken cancellationToken = default)
+    {
+        BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);
+
+        string fileName = $"{fileId}.pdf";
+
+        BlobClient blobClient = containerClient.GetBlobClient(fileName);
+
+        await blobClient.DeleteIfExistsAsync(cancellationToken: cancellationToken);
+    }
 }
