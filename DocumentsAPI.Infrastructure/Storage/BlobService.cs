@@ -7,7 +7,7 @@ namespace DocumentsAPI.Infrastructure.Storage;
 
 internal class BlobService(BlobServiceClient blobServiceClient) : IBlobService
 {
-    private const string ContainerName = "documents";
+    internal const string ContainerName = "documents";
     public async Task DeleteAsync(Guid fileId, CancellationToken cancellationToken = default)
     {
         BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(ContainerName);

@@ -9,6 +9,11 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 var app = builder.Build();
 
+if (app.Configuration.GetValue<bool>("BlobStorage:Initialize"))
+{
+    await app.Services.InitializeBlobStorageAsync();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -10,6 +10,12 @@ namespace DocumentsAPI.Infrastructure.Extensions;
 
 public static class DependencyInjection
 {
+    public static async Task InitializeBlobStorageAsync(this IServiceProvider services)
+    {
+        var client = services.GetRequiredService<BlobServiceClient>();
+        await client.GetBlobContainerClient(BlobService.ContainerName).CreateIfNotExistsAsync();
+    }
+
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IBlobService, BlobService>();
